@@ -6,13 +6,37 @@
 # El salario base es de $1530
 
 import tkinter as tk
+from tkinter import messagebox
 
 def login():
     usuario = entrada1.get()
     contrasenia = entrada2.get()
 
+    ventana2 = tk.Tk()
+    ventana2.geometry("200x150")
+
+    def deposito():
+        monto = float ( entrada.get() )
+        salarioFinal = monto+ 1530
+
+        messagebox.showinfo("Salario", f"Salario total es: {salarioFinal}")
+        
+
     if usuario== "admin" and contrasenia == "1234":
-        print("Desplegar ventana")
+        tk.Label(ventana2, text="Ingresar depósito").pack()
+        entrada = tk.Entry(ventana2)
+        entrada.pack()
+
+        
+
+        boton = tk.Button(ventana2, text="Depositar", command=deposito )
+        boton.pack()
+
+        ventana2.mainloop()
+
+
+
+
 
 ventana = tk.Tk()
 ventana.title("CÁLCULO SALARIO")
@@ -31,7 +55,7 @@ etiqueta2.pack()
 entrada2 = tk.Entry(ventana)
 entrada2.pack()
 
-boton = tk.Button(ventana, text="Calcular salario", command=login)
+boton = tk.Button(ventana, text="Login", command=login)
 boton.pack()
 
 
