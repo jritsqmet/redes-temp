@@ -1,5 +1,5 @@
 import tkinter as tk
-#from messagebox import tkinter as tkk
+from tkinter import messagebox 
 
 def saludo():
     nombre = entrada.get()
@@ -7,8 +7,10 @@ def saludo():
 
 
 def saludo2():
-    mensaje = tk.Message( ventana, str(  "Hola mundo" ))
+    mensaje = tk.Message( ventana, text="Hola mundo")
     mensaje.pack()
+
+
 
 
 #DECLARIÓN INICIAL
@@ -25,7 +27,7 @@ entrada = tk.Entry(ventana, font="Arial 15")
 entrada.pack()
 
 #CREAR BOTÓN 
-boton = tk.Button(ventana, text="ACEPTAR", command = saludo)
+boton = tk.Button(ventana, text="ACEPTAR", command = saludo2)
 boton.pack()
 
 
