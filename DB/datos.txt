@@ -1,0 +1,3 @@
+NOMBRE : juan
+EDAD: 23 
+PROFESIÓN: doctor

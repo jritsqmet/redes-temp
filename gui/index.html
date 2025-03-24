@@ -88,6 +88,12 @@
             background-color: #2c3e50;
             color: white;
         }
+        .table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
         .search-bar {
             margin-bottom: 15px;
         }
@@ -111,12 +117,22 @@
             background-color: #f8d7da;
             color: #dc3545;
         }
+        /* Colores de fondo para cada sección */
+        .interface.productos {
+            background-color: #e8f5e9; /* Verde claro */
+        }
+        .interface.clientes {
+            background-color: #e3f2fd; /* Azul claro */
+        }
+        .interface.ventas {
+            background-color: #fce4ec; /* Rosa claro */
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Interfaz de Gestión de Productos -->
-        <div class="interface">
+        <div class="interface productos">
             <h2>Gestión de Productos</h2>
             <div class="search-bar">
                 <input type="text" id="searchProducto" placeholder="Buscar producto...">
@@ -144,6 +160,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Precio</th>
@@ -153,10 +170,22 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>1</td>
                         <td>Producto 1</td>
                         <td>Descripción 1</td>
                         <td>$10.00</td>
                         <td>50</td>
+                        <td>
+                            <button class="button">Editar</button>
+                            <button class="button delete">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Producto 2</td>
+                        <td>Descripción 2</td>
+                        <td>$20.00</td>
+                        <td>30</td>
                         <td>
                             <button class="button">Editar</button>
                             <button class="button delete">Eliminar</button>
@@ -167,7 +196,7 @@
         </div>
 
         <!-- Interfaz de Gestión de Clientes -->
-        <div class="interface">
+        <div class="interface clientes">
             <h2>Gestión de Clientes</h2>
             <div class="search-bar">
                 <input type="text" id="searchCliente" placeholder="Buscar cliente...">
@@ -195,6 +224,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Nombre</th>
                         <th>Dirección</th>
                         <th>Teléfono</th>
@@ -204,10 +234,22 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>1</td>
                         <td>Cliente 1</td>
                         <td>Dirección 1</td>
                         <td>123456789</td>
                         <td>cliente1@example.com</td>
+                        <td>
+                            <button class="button">Editar</button>
+                            <button class="button delete">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Cliente 2</td>
+                        <td>Dirección 2</td>
+                        <td>987654321</td>
+                        <td>cliente2@example.com</td>
                         <td>
                             <button class="button">Editar</button>
                             <button class="button delete">Eliminar</button>
@@ -218,7 +260,7 @@
         </div>
 
         <!-- Interfaz de Gestión de Ventas -->
-        <div class="interface">
+        <div class="interface ventas">
             <h2>Gestión de Ventas</h2>
             <div class="search-bar">
                 <input type="text" id="searchVenta" placeholder="Buscar venta...">
@@ -252,6 +294,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Cliente</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
@@ -262,11 +305,23 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>1</td>
                         <td>Cliente 1</td>
                         <td>Producto 1</td>
                         <td>2</td>
                         <td>$20.00</td>
                         <td>2023-10-01</td>
+                        <td>
+                            <button class="button delete">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Cliente 2</td>
+                        <td>Producto 2</td>
+                        <td>1</td>
+                        <td>$20.00</td>
+                        <td>2023-10-02</td>
                         <td>
                             <button class="button delete">Eliminar</button>
                         </td>
