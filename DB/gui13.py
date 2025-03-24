@@ -2,16 +2,22 @@
 #de una tienda tecnológica
 
 import tkinter as tk
+from tkinter import messagebox 
 import csv
+import os
 
 #MUESTRA INFORMACIÓN EN LA LISTA
 def mostrar():
+    if ( os.path.exists("datos.csv") == False):
+        with open ("datos.csv", 'w') as archivo:
+            archivo.write(f"{'ID':<0},{'PRODUCTO':<30},{'CANTIDAD':<30},{'PRECIO':<30}\n")
+
     with open ("datos.csv", 'r') as archivo :
         data = csv.reader(archivo)
 
         lista.delete(0, tk.END)
         for item in data:
-            lista.insert(tk.END, item)
+            lista.insert(tk.END, f"{item[0]:<10} {item[1]:<30} {item[2]:<30} {item[3]:<30}")
 
         archivo.close()
 
@@ -22,11 +28,22 @@ def guardar():
     cantidad = entradaCantidad.get()
     precio = entradaPrecio.get()
 
-    with open("datos.csv", 'a') as archivo:
-        
-        archivo.write(f"{id},{producto},{cantidad},{precio}\n")
+    if id.strip() != "" and producto.strip()!= "" and cantidad.strip() != "" and precio.strip() != "" :
+        with open("datos.csv", 'a') as archivo:
+                
+                archivo.write(f"{id},{producto},{cantidad},{precio}\n")
+        archivo.close()
 
-    archivo.close()
+        entradaID.delete(0, tk.END)
+        entradaProducto.delete(0, tk.END)
+        entradaCantidad.delete(0, tk.END)
+        entradaPrecio.delete(0, tk.END)
+    else:
+        messagebox.showerror("ERROR", "No se permiten campos en blanco")
+
+    
+
+
     mostrar()
 #################################
 def cargar():
@@ -36,7 +53,8 @@ def cargar():
         datos=[]
         for item in data:
             datos.append(item)
-       
+
+    archivo.close()
     return datos
 
 
@@ -45,12 +63,20 @@ def eliminar():
     datos = cargar()
     seleccionado = lista.curselection() # asigna el id del elemento seleccionado
 
-    del datos[ seleccionado[0]]
 
-    with open ("datos.csv", 'w') as archivo:
-        data = csv.writer(archivo)
-        data.writerows(datos)
+    try:
+        if seleccionado[0] != 0 :
+            del datos[ seleccionado[0]]
+        else:
+            messagebox.showerror("ERROR", "No se pueden eliminar las cabeceras")
 
+        with open ("datos.csv", 'w') as archivo:
+            data = csv.writer(archivo)
+            data.writerows(datos)
+
+        archivo.close()
+    except IndexError:
+        messagebox.showerror("ERROR", "No se ha seleccionado ningún elemento")
     mostrar()
 
 #EDITAR
@@ -62,13 +88,24 @@ def editar():
     producto = entradaProducto.get()
     cantidad = entradaCantidad.get()
     precio = entradaPrecio.get()
+    try:
+        if seleccionado[0] != 0  and id.strip()!="" and producto.strip() != "" and cantidad.strip() != "" and precio.strip() != "":
+            datos[seleccionado[0]] = [id, producto, cantidad, precio]
 
-    datos[seleccionado[0]] = [id, producto, cantidad, precio]
+            with open("datos.csv", 'w') as archivo:
+                data = csv.writer(archivo)
+                data.writerows(datos)
 
-    with open("datos.csv", 'w') as archivo:
-        data = csv.writer(archivo)
-        data.writerows(datos)
+            archivo.close()
 
+            entradaID.delete(0, tk.END)
+            entradaProducto.delete(0, tk.END)
+            entradaCantidad.delete(0, tk.END)
+            entradaPrecio.delete(0, tk.END)
+        else:
+            messagebox.showerror("ERROR", "No se permiten campos en blanco y tampoco seleccionar las cabeceras")
+    except IndexError:
+        messagebox.showerror("ERROR", "Debe seleccionar un elemento a editar")
     mostrar()
 
 
@@ -106,7 +143,7 @@ tk.Button(ventana, text="EDITAR", command=editar).grid(row=5, column=2)
 
 
 #LISTA
-lista = tk.Listbox(ventana, width=40)
+lista = tk.Listbox(ventana, width=60)
 lista.grid( row=6, column=0, columnspan=3)
 
 
