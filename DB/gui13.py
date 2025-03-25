@@ -1,6 +1,5 @@
 #Crear un programa que permita realizar un CRUD par la gestión
 #de una tienda tecnológica
-
 import tkinter as tk
 from tkinter import messagebox 
 import csv
@@ -63,7 +62,6 @@ def eliminar():
     datos = cargar()
     seleccionado = lista.curselection() # asigna el id del elemento seleccionado
 
-
     try:
         if seleccionado[0] != 0 :
             del datos[ seleccionado[0]]
@@ -107,7 +105,6 @@ def editar():
     except IndexError:
         messagebox.showerror("ERROR", "Debe seleccionar un elemento a editar")
     mostrar()
-
 
 
 
