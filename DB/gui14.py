@@ -6,6 +6,7 @@
 # estudiante aprobó el curso, mediante el promedio de las
 # 3 calificaciones con un promedio mayor o igual de 7
 import tkinter as tk
+from tkinter import messagebox
 import csv
 
 def mostrar():
@@ -15,20 +16,25 @@ def mostrar():
         lista.delete(0, tk.END)
         for item in data:
             lista.insert(tk.END, item)
-    archivo.close()
+    archivo.close()     
 
 
 def agregar_estudiante():
     cedula = cedulaEntrada.get()
     nombre = nombreENtrada.get()
-    calificacion1 = calificacion1Entrada.get()
-    calificacion2 = calificacion2Entrada.get()
-    calificacion3 = calificacion3Entrada.get()
+    calificacion1 = float( calificacion1Entrada.get())
+    calificacion2 = float( calificacion2Entrada.get() )
+    calificacion3 = float( calificacion3Entrada.get() )
+
+    promedio = (calificacion1 +calificacion2 +calificacion3) /3
 
     with open( "estudiantes.csv", 'a') as archivo :
-        archivo.write(f"{cedula},{nombre},{calificacion1},{calificacion2},{calificacion3}\n")
+        archivo.write(f"{cedula},{nombre},{calificacion1},{calificacion2},{calificacion3},{promedio}\n")
 
     mostrar()
+
+
+
     
 ##### ELIMINAR - EDITAR #####
 def cargar():
@@ -77,8 +83,16 @@ def editar():
 
 
 def ver_aprobacion():
-    # Este sería el lugar para ver la aprobación
-    pass
+    seleccionado = lista.curselection()
+    datos = cargar()
+
+    promedio = float( datos[seleccionado[0]][-1] )
+    
+    if promedio >= 7:
+        messagebox.showinfo("Felicitaciones", "Estudiante aprobado")
+    else:
+        messagebox.showerror("NO APORBADO", "El estudiante no aprobó")
+    
 
 
 def limpiar_campos():
@@ -114,11 +128,10 @@ calificacion3Entrada=tk.Entry(root, width=5)
 calificacion3Entrada.grid(row=5, column=1)
 
 # Botones
-tk.Button(root, text="Agregar", width=10, command=agregar_estudiante).grid(row=6, column=0, padx=10, pady=5)
-tk.Button(root, text="Editar", width=10, command=editar).grid(row=6, column=1, padx=10, pady=5)
-tk.Button(root, text="Eliminar", width=10, command=eliminar_estudiante).grid(row=6, column=2, padx=10, pady=5)
-tk.Button(root, text="Ver Aprobación", width=12, command=ver_aprobacion).grid(row=6, column=3, padx=10, pady=5)
-tk.Button(root, text="Limpiar", width=10, command=limpiar_campos).grid(row=6, column=4, padx=10, pady=5)
+tk.Button(root, text="Agregar",  command=agregar_estudiante).grid(row=6, column=0)
+tk.Button(root, text="Editar",  command=editar).grid(row=6, column=1)
+tk.Button(root, text="Eliminar",  command=eliminar_estudiante).grid(row=6, column=2)
+tk.Button(root, text="Aprobación", command=ver_aprobacion).grid(row=6, column=3)
 
 # Listbox con scroll
 list_frame = tk.LabelFrame(root, text="Lista de Estudiantes", padx=10, pady=10)
